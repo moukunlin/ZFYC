@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+    <Properties>
+        <Property name="log.path">logs</Property>
+        <Property name="host">${env:COMPUTERNAME}</Property>
+    </Properties>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT" follow="true">
+            <PatternLayout
+                    pattern="%highlight{[%d{HH:mm:ss,SSS}] %highlight{%-5level}{FATAL=Bright red, ERROR=Bright red, WARN=Bright Yellow, INFO=Bright Green, DEBUG=Bright Cyan} %style{%c{1}}{Cyan} : %m%n%ex}"/>
+        </Console>
+
+        <!--<NoSql name="mongoAppender" bufferSize="10"> &lt;!&ndash;建议bufferSize配置,减少频繁写操作。 &ndash;&gt;
+            <MongoDb databaseName="cmp" collectionName="app-log" server="127.0.0.1" port="27017"/>
+        </NoSql>-->
+
+        <RollingRandomAccessFile name="errLog" fileName="${log.path}/error.log"
+                                 immediateFlush="false"
+                                 filePattern="${log.path}/${date:yyyy-MM}/error-%d{yyyy-MM-dd}-%i.log.gz">
+            <Filters>
+                <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="WARN"  onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <PatternLayout>
+                <Pattern>[%d{DEFAULT}] %-5level [%t] %c - %m%n%ex</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="250 MB"/>
+            </Policies>
+            <!--自动删除超过30天的日志压缩文件-->
+            <DefaultRolloverStrategy>
+                <Delete basePath="${log.path}" maxDepth="4">
+                    <IfFileName glob="*/error-*.log.gz"/>
+                    <IfLastModified age="30d"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingRandomAccessFile>
+        <RollingRandomAccessFile name="traceLog" fileName="${log.path}/trace.log"
+                                 immediateFlush="false"
+                                 filePattern="${log.path}/${date:yyyy-MM}/trace-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout>
+                <Pattern>[%d{DEFAULT}] %-5level [%t] %c - %m%n%ex</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="250 MB"/>
+            </Policies>
+            <!--自动删除超过30天的日志压缩文件-->
+            <DefaultRolloverStrategy>
+                <Delete basePath="${log.path}" maxDepth="4">
+                    <IfFileName glob="*/trace-*.log.gz"/>
+                    <IfLastModified age="30d"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingRandomAccessFile>
+    </Appenders>
+    <Loggers>
+        <!--<AsyncLogger name="cn.com" level="trace" includeLocation="true">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="errLog"/>
+            <AppenderRef ref="traceLog"/>
+            <AppenderRef ref="Socket" level="info"/>
+        </AsyncLogger>-->
+        <Root level="trace" includeLocation="true">
+            <AppenderRef ref="Console" level="info"/>
+            <AppenderRef ref="traceLog"/>
+            <AppenderRef ref="errLog"/>
+        </Root>
+        <logger name="cn.com.bonc.khjy.data.mapper" level="info">
+            <AppenderRef ref="errLog"/>
+            <AppenderRef ref="traceLog"/>
+        </logger>
+    </Loggers>
+</Configuration>
