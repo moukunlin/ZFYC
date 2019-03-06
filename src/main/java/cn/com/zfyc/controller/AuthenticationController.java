@@ -4,7 +4,6 @@ import cn.com.zfyc.bean.RestfulRecord;
 import cn.com.zfyc.bean.User;
 import cn.com.zfyc.service.UserService;
 import cn.hutool.core.collection.CollectionUtil;
-import org.apache.tomcat.util.security.MD5Encoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -47,9 +46,8 @@ public class AuthenticationController {
             }
             user.setCreate_time(System.currentTimeMillis());
         }
-
-        userService.insertUser(user);
-        return new RestfulRecord(200,"注册成功");
+         userService.insertUser(user);
+         return new RestfulRecord(200,"注册成功");
     }
 
     /**
@@ -62,11 +60,9 @@ public class AuthenticationController {
         RestfulRecord record = new RestfulRecord();
         int result = userService.checkUserName(name);
         if (result > 0){
-            record.setMsg("该昵称称已被占用");
-            record.setCode(500);
+            record.setData("该昵称称已被占用");
         }else {
-            record.setCode(200);
-            record.setMsg("该昵称可用");
+            record.setData("该昵称可用");
         }
         return record;
     }
@@ -81,11 +77,9 @@ public class AuthenticationController {
         RestfulRecord record = new RestfulRecord();
         int count = userService.checkPhoneNum(phoneNum);
         if (count > 0){
-            record.setMsg("该手机号已被注册");
-            record.setCode(500);
+            record.setData("该手机号已被注册");
         }else {
-            record.setMsg("该手机号可用");
-            record.setCode(200);
+            record.setData("该手机号可用");
         }
         return record;
     }
