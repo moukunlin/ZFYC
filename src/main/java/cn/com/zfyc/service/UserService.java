@@ -1,7 +1,7 @@
 package cn.com.zfyc.service;
 
 import cn.com.zfyc.bean.User;
-import cn.com.zfyc.date.dao.UserDao;
+import cn.com.zfyc.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +10,7 @@ public class UserService {
 
     @Autowired
     private UserDao userDao;
+
     public int insertUser(User user) {
         return userDao.insertUser(user);
     }

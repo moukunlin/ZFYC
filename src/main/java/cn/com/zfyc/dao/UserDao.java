@@ -1,4 +1,4 @@
-package cn.com.zfyc.date.mapper;
+package cn.com.zfyc.dao;
 
 import cn.com.zfyc.bean.User;
 import org.apache.ibatis.annotations.Mapper;
@@ -7,8 +7,7 @@ import org.springframework.stereotype.Component;
 
 
 @Mapper
-@Component
-public interface UserMapper {
+public interface UserDao {
 
     int insertUser(User user);
 
