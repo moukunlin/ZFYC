@@ -2,8 +2,6 @@ package cn.com.zfyc.dao;
 
 import cn.com.zfyc.bean.User;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.springframework.stereotype.Component;
 
 
 @Mapper

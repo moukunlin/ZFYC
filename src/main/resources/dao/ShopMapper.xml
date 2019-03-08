@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.zfyc.dao.ShopDAO">
+
+    <insert id="save" >
+        INSERT INTO
+          shop
+          ( shop_name, shop_address, legal_person, business_license, ID_card_num, ID_cart_photo, shop_photo, category, status )
+          VALUES
+	      (
+	        #{shop.shopName},
+            #{shop.shopAddress},
+            #{shop.legalPerson},
+            #{shop.businessLicense},
+            #{shop.idCardNum},
+            #{shop.idCardPhoto},
+            #{shop.shopPhoto},
+            #{shop.category},
+            #{shop.status}
+            )
+
+    </insert>
+
+    <select id="checkPhoneNum" parameterType="String" resultType="cn.com.zfyc.bean.ShopEntity">
+        SELECT * FROM  shop WHERE
+        <if test="shopId != null">
+            shop_id = #{shopId}
+        </if>
+    </select>
+
+    <select id="checkUserName" parameterType="String" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM  user WHERE user_name = #{user_name}
+    </select>
+
+</mapper>
