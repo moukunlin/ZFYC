@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 52990
 spring:
   datasource:
     url: jdbc:mysql://118.24.36.128:3306/zfyc?rewriteBatchedStatements=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
@@ -8,7 +8,12 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
 mybatis:
-  mapperLocations: classpath:dao/*.xml
+  mapperLocations: classpath:mapper/*.xml
   configuration:
       cache-enabled: false
       local-cache-scope: statement
+  type-aliases-package: cn.com.zfyx.bean    # 设置mybatis pojo实体类的别名
+
+fileUpload:
+   path: /home/uploadFiles/img/static
+   mappingPath: http://118.24.36.128:80/static

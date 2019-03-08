@@ -1,10 +1,5 @@
 package cn.com.zfyc.utils;
 
-/**
- * created by 李啸峰 on 2018/5/14.
- * 2018 @ cmp
- * @lastUpdate 2018/5/30 by Leucippus 添加了针对 stacktrace 的方法。
- */
 public class ExceptionUtil {
 
     public static String getStackTrace( Exception e ) {

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -56,7 +57,7 @@ public class AuthenticationController {
      */
     @RequestMapping("/checkUserName")
     @ResponseBody
-    public RestfulRecord  checkUserName(String name){
+    public RestfulRecord  checkUserName(@RequestParam  String name){
         RestfulRecord record = new RestfulRecord();
         int result = userService.checkUserName(name);
         if (result > 0){
@@ -73,7 +74,7 @@ public class AuthenticationController {
 
     @RequestMapping("/checkPhoneNum")
     @ResponseBody
-    public RestfulRecord checkPhoneNum(String phoneNum){
+    public RestfulRecord checkPhoneNum(@RequestParam  String phoneNum){
         RestfulRecord record = new RestfulRecord();
         int count = userService.checkPhoneNum(phoneNum);
         if (count > 0){
@@ -86,19 +87,28 @@ public class AuthenticationController {
 
 
     /**
-     * @desc 统一登录接口
-     * @param param 用户昵称/手机号
+     * @desc 商户登录接口 (手机号、密码登录方式）
+     * @param param   手机号
      * @param password 密码
-     * @param userType 用户类型 0 管理员 1 商户 2 普通用户
      * @return
      */
    @RequestMapping("/login")
    @ResponseBody
-    public RestfulRecord login(String param,String password,int userType){
-        RestfulRecord record = new RestfulRecord();
-        userService.login(param,password,userType);
-
-
-        return record;
+    public RestfulRecord login(@RequestParam String param,@RequestParam String password){
+        RestfulRecord record = new RestfulRecord(200);
+       int login = userService.login(param, password);
+       if (login ==1){
+           record.setMsg("登录失败");
+       }else {
+           record.setMsg("登录成功");
+           String token = UUID.randomUUID().toString().replaceAll("-","")+System.currentTimeMillis();
+           userService.updateUserToken(token,param);
+           User user = userService.findUserByPhoneNum(param);
+           Map<String,Object> map = new HashMap<>();
+           map.put("user_id",user.getUser_id());
+           map.put("token",token);
+           record.setData(map);
+       }
+       return record;
     }
 }

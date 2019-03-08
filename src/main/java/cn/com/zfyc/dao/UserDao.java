@@ -2,6 +2,9 @@ package cn.com.zfyc.dao;
 
 import cn.com.zfyc.bean.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Component;
 
 
 @Mapper
@@ -14,6 +17,11 @@ public interface UserDao {
 
     int checkUserName(String name);
 
-   // @Select("SELECT COUNT(*) FROM user WHERE phone_num = #{param} AND password = #{password} OR user_name = #{param} AND")
-    int login(String param, String password, int userType);
+    int login(@Param("param") String param, @Param("password") String password);
+
+    int updateUserToken(@Param("token") String token,@Param("phoneNum") String phoneNum);
+
+    User findUserByPhoneNum(@Param("phoneNum")String phoneNum);
+
+    User findUserByUserId(@Param("userId") String user_id);
 }

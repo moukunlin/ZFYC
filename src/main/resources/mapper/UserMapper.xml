@@ -81,4 +81,21 @@
         SELECT COUNT(*) FROM  user WHERE user_name = #{user_name}
     </select>
 
+    <select id="login" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM user WHERE
+        phone_num = #{param} AND password = #{password}
+        AND user_type = 1
+    </select>
+
+    <update id="updateUserToken" parameterType="String" >
+        UPDATE user set token = #{token} where phone_num = #{phoneNum}
+    </update>
+
+    <select id="findUserByPhoneNum" parameterType="String" resultType="User">
+        SELECT * FROM user where phone_num = #{phoneNum}
+    </select>
+
+    <select id="findUserByUserId" parameterType="String" resultType="User">
+        SELECT * FROM user where user_id = #{userId}
+    </select>
 </mapper>

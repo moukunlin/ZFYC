@@ -29,11 +29,11 @@ public enum JacksonMapper {
         try {
             map = MAPPER.readValue( jsonData, Map.class );
         } catch ( JsonParseException e ) {
-            log.error( e, SystemMessageId.CMP0013, jsonData );
+            log.error( e, "Jackson发生解析异常，详细信息", jsonData );
         } catch ( JsonMappingException e ) {
-            log.error( e, SystemMessageId.CMP0014, jsonData );
+            log.error( e, "Jackson发生映射异常，详细信息：{}", jsonData );
         } catch ( IOException e ) {
-            log.error( e, SystemMessageId.CMP0012, jsonData );
+            log.error( e, "Jackson处理数据{}时发生转换错误，详细信息：{}", jsonData );
         }
         return map;
     }
@@ -43,11 +43,11 @@ public enum JacksonMapper {
         try {
             list = MAPPER.readValue( jsonData, List.class );
         } catch ( JsonParseException e ) {
-            log.error( e, SystemMessageId.CMP0013, jsonData );
+            log.error( e, "Jackson发生解析异常，详细信息", jsonData );
         } catch ( JsonMappingException e ) {
-            log.error( e, SystemMessageId.CMP0014, jsonData );
+            log.error( e, "Jackson发生映射异常，详细信息：{}", jsonData );
         } catch ( IOException e ) {
-            log.error( e, SystemMessageId.CMP0012, jsonData );
+            log.error( e, "Jackson处理数据{}时发生转换错误，详细信息：{}", jsonData );
         }
         return list;
     }
@@ -56,14 +56,10 @@ public enum JacksonMapper {
         try {
             return MAPPER.writeValueAsString( obj );
         } catch ( JsonProcessingException e ) {
-            log.error( e, SystemMessageId.CMP0007, obj );
+            log.error( e, "对象{}转换为json数据异常!", obj );
         }
         return "{}";
     }
 
-   /* public ObjectMapper getMapper() {
-        MAPPER.setDateFormat( TimeFormatUtils.INSTANCE.getJacksonFormat() );
-        return MAPPER;
-    }*/
 
 }

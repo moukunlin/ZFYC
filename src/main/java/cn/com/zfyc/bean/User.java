@@ -13,6 +13,16 @@ public class User {
     private String account;
     private int Integral;
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    private String token;
+
     public String getUser_id() {
         return user_id;
     }

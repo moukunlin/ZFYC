@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.zfyc.dao.FileDao">
+  <insert id="saveFile">
+      INSERT  INTO files (file_name,fileSavePath,upload_date) values (#{fileName},#{fileSavePath},#{date})
+  </insert>
+
+    <select id="getFileResourceById" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+      SELECT * FROM files where ID = #{id};
+    </select>
+
+   <select id="getFileResourceByName" parameterType="java.lang.String" resultType="java.util.HashMap">
+      SELECT * FROM files where file_name = #{name};
+   </select>
+
+</mapper>
