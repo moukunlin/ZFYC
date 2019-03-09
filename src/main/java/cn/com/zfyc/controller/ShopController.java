@@ -1,5 +1,6 @@
 package cn.com.zfyc.controller;
 
+import cn.com.zfyc.bean.RestfulRecord;
 import cn.com.zfyc.bean.ShopEntity;
 import cn.com.zfyc.service.ShopService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,8 +19,8 @@ public class ShopController {
     private ShopService shopService;
 
     @PostMapping("/shop/save")
-    public Integer save(@RequestBody ShopEntity shop){
-        return shopService.save(shop);
+    public RestfulRecord save(@RequestBody ShopEntity shop){
+        return new RestfulRecord(shopService.save(shop));
     }
 }
 

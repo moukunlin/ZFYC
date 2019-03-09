@@ -13,6 +13,7 @@ public class ShopEntity {
     private String shopName;
     private String typeId;
     private String ctyId;
+    private String carefulId;
     private String name;
     private String address;
     private String degrees;
