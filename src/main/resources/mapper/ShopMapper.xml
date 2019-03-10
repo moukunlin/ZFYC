@@ -5,18 +5,53 @@
     <insert id="save" >
         INSERT INTO
           shop
-          ( shop_name, shop_address, legal_person, business_license, ID_card_num, ID_cart_photo, shop_photo, category, status )
+          (
+            shop_name,
+            type_id,
+            cty_id,
+            careful_id,
+            name,
+            address,
+            degrees,
+            shop_photo,
+            in_store,
+            license_photo,
+            permit_photo,
+            id_num,
+            just_id_photo,
+            back_id_photo,
+            bank_address,
+            bank_nane,
+            bank_name,
+            bank_id,
+            bank_phone,
+            status,
+            create_date
+
+          )
           VALUES
 	      (
-	        #{shop.shopName},
-            #{shop.shopAddress},
-            #{shop.legalPerson},
-            #{shop.businessLicense},
-            #{shop.idCardNum},
-            #{shop.idCardPhoto},
+            #{shop.shopName},
+            #{shop.typeId},
+            #{shop.ctyId},
+            #{shop.carefulId},
+            #{shop.name},
+            #{shop.address},
+            #{shop.degrees},
             #{shop.shopPhoto},
-            #{shop.category},
-            #{shop.status}
+            #{shop.inStore},
+            #{shop.licensePhoto},
+            #{shop.permitPhoto},
+            #{shop.idNum},
+            #{shop.justIdPhoto},
+            #{shop.backIdPhoto},
+            #{shop.bankAddress},
+            #{shop.bankNnme},
+            #{shop.bankName},
+            #{shop.bankId},
+            #{shop.bankPhone},
+            #{shop.status},
+            now()
             )
 
     </insert>

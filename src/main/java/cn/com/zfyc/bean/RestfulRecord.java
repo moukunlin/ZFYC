@@ -96,6 +96,10 @@ public class RestfulRecord implements Serializable {
         this.data = data;
     }
 
+    public RestfulRecord(Object data ) {
+        this.data = data;
+    }
+
     public RestfulRecord(boolean isSuccess ) {
         this.code = isSuccess ? 200 : 500;
     }

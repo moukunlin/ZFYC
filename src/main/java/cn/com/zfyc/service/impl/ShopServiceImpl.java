@@ -1,6 +1,7 @@
 package cn.com.zfyc.service.impl;
 
 import cn.com.zfyc.bean.ShopEntity;
+import cn.com.zfyc.dao.FileDAO;
 import cn.com.zfyc.dao.ShopDAO;
 import cn.com.zfyc.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,9 @@ public class ShopServiceImpl implements ShopService {
 
     @Autowired
     private ShopDAO shopDAO;
+
+    @Autowired
+    private FileDAO fileDAO;
 
     @Override
     public Integer save(ShopEntity shop) {
