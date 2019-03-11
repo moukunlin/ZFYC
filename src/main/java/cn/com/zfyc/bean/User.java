@@ -77,7 +77,7 @@ public class User {
     public void setCreate_time(Long create_time) {
         this.create_time = create_time;
     }
-    
+
     public int getIntegral() {
         return Integral;
     }

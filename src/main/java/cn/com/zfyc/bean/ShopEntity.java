@@ -18,8 +18,8 @@ public class ShopEntity {
     private String address;
     private String lng;
     private String lat;
-    private int shopPhoto;
-    private int inStore;
+    private String shopPhoto;
+    private String inStore;
     private int licensePhoto;
     private int permitPhoto;
     private String idNum;

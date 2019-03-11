@@ -10,7 +10,7 @@
           (
             #{fileName},
             #{fileSavePath},
-            ${date}
+            now()
           )
     </insert>
 

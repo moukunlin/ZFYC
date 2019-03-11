@@ -60,7 +60,7 @@ public interface WebMessageConstants {
 
     String SCE_PORTAL_MSG_450 = "上传文件为空";
     String SCE_PORTAL_MSG_451 = "上传文件失败";
-    String SCE_PORTAL_MSG_452 = "上传文件类型异常,仅支持上传jgp和png格式的图片";
+    String SCE_PORTAL_MSG_452 = "上传文件类型异常,仅支持上传jpg和png格式的图片";
 
 
     /**

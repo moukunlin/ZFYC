@@ -3,6 +3,8 @@ package cn.com.zfyc.controller;
 import cn.com.zfyc.bean.RestfulRecord;
 import cn.com.zfyc.constants.WebMessageConstants;
 import cn.com.zfyc.service.FileUploadService;
+import cn.hutool.log.Log;
+import cn.hutool.log.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,6 +17,8 @@ public class FileUploadController {
     @Autowired
     private FileUploadService service;
 
+    private final static Log log = LogFactory.get();
+
 
     /**
      * @desc 单文件上传接口
@@ -24,6 +28,7 @@ public class FileUploadController {
     @PostMapping("/uploadSingleFile")
     @ResponseBody
     public RestfulRecord uploadFile(@RequestParam("file") MultipartFile multipartFile){
+        log.info("调用单文件上传接口");
         if ( multipartFile == null || multipartFile.isEmpty() ) {
             return new RestfulRecord( 200, WebMessageConstants.SCE_PORTAL_MSG_450);
         }

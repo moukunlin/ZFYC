@@ -40,14 +40,14 @@ public class FileUploadService {
             byte[] bytes = multipartFile.getBytes();
             String originFileName = multipartFile.getOriginalFilename();
             String suffixName = FileUploadUtil.getFileSuffix( originFileName );
-            if (suffixName.equalsIgnoreCase("jpg") || suffixName.equalsIgnoreCase("png")){
+            if (suffixName.equalsIgnoreCase(".jpg") || suffixName.equalsIgnoreCase(".png")){
                 String prefixName = FileUploadUtil.getFilePrefix( originFileName );
                 String date = new SimpleDateFormat( "yyyyMMddHHmmss" ).format( new Date() );
                 String saveFileName = prefixName + date + suffixName;
                 boolean status = FileUploadUtil.uploadFile( bytes, saveFileName, fileSavePath );
                 if (status){
                     log.info("文件上传成功，插入文件上传信息到数据库");
-                    fileDao.saveFile(saveFileName,fileSavePath+ File.separator + saveFileName,System.currentTimeMillis());
+                    fileDao.saveFile(saveFileName,fileSavePath+ File.separator + saveFileName);
                     Map<String, Object> file = fileDao.getFileResourceByName(saveFileName);
                     file.put("url",fileMappingPath + File.separator + saveFileName);
                     return new RestfulRecord(200, WebMessageConstants.SCE_PORTAL_MSG_240,file);
@@ -56,6 +56,7 @@ public class FileUploadService {
                     return new RestfulRecord(200,WebMessageConstants.SCE_PORTAL_MSG_451);
                 }
             }else {
+                log.info("文件后缀为:{}" + suffixName);
                 return new RestfulRecord(200,WebMessageConstants.SCE_PORTAL_MSG_452);
             }
         } catch (IOException e) {
@@ -80,7 +81,7 @@ public class FileUploadService {
                     if (status) {
                         flag = true;
                         log.info("文件上传成功，插入数据库");
-                        fileDao.saveFile(saveFileName,fileSavePath+ File.separator + saveFileName,System.currentTimeMillis());
+                        fileDao.saveFile(saveFileName,fileSavePath+ File.separator + saveFileName);
                         Map<String, Object> file = fileDao.getFileResourceByName(saveFileName);
                         file.put("url",fileSavePath + File.separator + saveFileName);
                         files.add(file);
