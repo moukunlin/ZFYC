@@ -9,6 +9,6 @@ import org.apache.ibatis.annotations.Param;
  * @author created by putc on 2019/3/7
  */
 @Mapper
-public interface CategoryDAO {
+public interface CategoryDao {
     Integer save(@Param("category") CategoryEntity categoryEntity);
 }

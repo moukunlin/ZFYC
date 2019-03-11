@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.com.zfyc.dao.ShopDAO">
+<mapper namespace="cn.com.zfyc.dao.ShopDao">
 
     <insert id="save" >
         INSERT INTO
@@ -8,18 +8,18 @@
           (
             shop_name,
             type_id,
-            cty_id,
-            careful_id,
             name,
+            user_id,
             address,
-            degrees,
+            lng,
+            lat,
+            area,
             shop_photo,
             in_store,
             license_photo,
             permit_photo,
             id_num,
-            just_id_photo,
-            back_id_photo,
+            id_photo,
             bank_address,
             bank_nane,
             bank_name,
@@ -33,24 +33,24 @@
 	      (
             #{shop.shopName},
             #{shop.typeId},
-            #{shop.ctyId},
-            #{shop.carefulId},
             #{shop.name},
+            #{shop.userId}
+            #{shop.area},
             #{shop.address},
-            #{shop.degrees},
+            #{shop.lng},
+            #{shop.lat}
             #{shop.shopPhoto},
             #{shop.inStore},
             #{shop.licensePhoto},
             #{shop.permitPhoto},
             #{shop.idNum},
-            #{shop.justIdPhoto},
-            #{shop.backIdPhoto},
+            #{shop.IdPhoto},
             #{shop.bankAddress},
             #{shop.bankNnme},
             #{shop.bankName},
             #{shop.bankId},
             #{shop.bankPhone},
-            #{shop.status},
+            0,
             now()
             )
 
@@ -63,8 +63,9 @@
         </if>
     </select>
 
-    <select id="checkUserName" parameterType="String" resultType="java.lang.Integer">
-        SELECT COUNT(*) FROM  user WHERE user_name = #{user_name}
-    </select>
+   <select id="findShopByUserId" parameterType="String" resultType="cn.com.zfyc.bean.ShopEntity">
+      SELECT * FROM  shop where user_id = #{userId};
+   </select>
+
 
 </mapper>

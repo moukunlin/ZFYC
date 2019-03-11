@@ -49,7 +49,7 @@ public class FileUploadService {
                     log.info("文件上传成功，插入文件上传信息到数据库");
                     fileDao.saveFile(saveFileName,fileSavePath+ File.separator + saveFileName,System.currentTimeMillis());
                     Map<String, Object> file = fileDao.getFileResourceByName(saveFileName);
-                    file.put("url",fileSavePath + File.separator + saveFileName);
+                    file.put("url",fileMappingPath + File.separator + saveFileName);
                     return new RestfulRecord(200, WebMessageConstants.SCE_PORTAL_MSG_240,file);
                 }else {
                     log.info("文件上传失败");
@@ -104,6 +104,7 @@ public class FileUploadService {
     public RestfulRecord  getFileResourceById(int id){
         Map<String, Object> file = fileDao.getFileResourceById(id);
         if (CollectionUtil.isNotEmpty(file)){
+            file.put("url",fileMappingPath + File.separator + file.get("file_name").toString());
             return new RestfulRecord(200,WebMessageConstants.SCE_PORTAL_MSG_200,file);
         }else {
             return new RestfulRecord(200,WebMessageConstants.SCE_PORTAL_MSG_420);

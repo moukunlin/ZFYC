@@ -38,9 +38,6 @@
            <if test="create_date != null">
                create_date,
            </if>
-           <if test="account != null">
-               account,
-           </if>
            <if test="Integral != null">
                Integral,
            </if>
@@ -63,9 +60,6 @@
            </if>
            <if test="create_date != null">
                #{create_date},
-           </if>
-           <if test="account != null">
-               #{account},
            </if>
            <if test="Integral != null">
                #{Integral}
@@ -91,11 +85,12 @@
         UPDATE user set token = #{token} where phone_num = #{phoneNum}
     </update>
 
-    <select id="findUserByPhoneNum" parameterType="String" resultType="User">
+    <select id="findUserByPhoneNum" parameterType="String" resultType="cn.com.zfyc.bean.User">
         SELECT * FROM user where phone_num = #{phoneNum}
     </select>
 
-    <select id="findUserByUserId" parameterType="String" resultType="User">
+    <select id="findUserByUserId" parameterType="String" resultType="cn.com.zfyc.bean.User">
         SELECT * FROM user where user_id = #{userId}
     </select>
+
 </mapper>

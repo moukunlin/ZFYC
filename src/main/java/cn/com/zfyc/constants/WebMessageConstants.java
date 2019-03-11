@@ -69,5 +69,11 @@ public interface WebMessageConstants {
     String SCE_PORTAL_MSG_500 = "服务器发生意外错误";
     String SCE_PORTAL_MSG_501 = "服务器发生意外错误,错误信息 {}";
 
+    /**
+     * 通用返回信息
+     */
+    String SUCCESS = "SUCCESS";
+    String FAIL = "FAIL";
+
 
 }

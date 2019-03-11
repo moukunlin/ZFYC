@@ -2,7 +2,6 @@ package cn.com.zfyc.controller;
 
 import cn.com.zfyc.bean.RestfulRecord;
 import cn.com.zfyc.constants.WebMessageConstants;
-import cn.com.zfyc.dao.FileDao;
 import cn.com.zfyc.service.FileUploadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +15,6 @@ public class FileUploadController {
     @Autowired
     private FileUploadService service;
 
-    @Autowired
-    private FileDao fileDao;
 
     /**
      * @desc 单文件上传接口
@@ -43,7 +40,7 @@ public class FileUploadController {
         return service.uploadMoreFile(multipartFiles);
     }
 
-    @RequestMapping("getFileResourceById")
+    @RequestMapping("/getFileResourceById")
     @ResponseBody
     public RestfulRecord getFileResourceById(@RequestParam int id){
         return  service.getFileResourceById(id);

@@ -1,28 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.com.zfyc.dao.FileDAO">
+<mapper namespace="cn.com.zfyc.dao.FileDao">
 
-    <insert id="save" >
+    <insert id="saveFile" >
         INSERT INTO
           files
-          ( file_name, save_path,upload_date)
+          ( file_name, file_savePath,upload_date)
           VALUES
           (
-            #{file.fileName},
-            #{file.savePath},
-            now()
+            #{fileName},
+            #{fileSavePath},
+            ${date}
           )
     </insert>
 
-    <select id="checkPhoneNum" parameterType="String" resultType="cn.com.zfyc.bean.ShopEntity">
-        SELECT * FROM  shop WHERE
-        <if test="shopId != null">
-            shop_id = #{shopId}
-        </if>
+    <select id="getFileResourceById" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+        SELECT * FROM files where ID = #{id}
     </select>
 
-    <select id="checkUserName" parameterType="String" resultType="java.lang.Integer">
-        SELECT COUNT(*) FROM  user WHERE user_name = #{user_name}
+    <select id="getFileResourceByName" parameterType="java.lang.String" resultType="java.util.HashMap">
+        SELECT * FROM files where file_name = #{name}
     </select>
+
+
 
 </mapper>

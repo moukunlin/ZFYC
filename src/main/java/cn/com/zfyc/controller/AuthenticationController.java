@@ -1,9 +1,12 @@
 package cn.com.zfyc.controller;
 
 import cn.com.zfyc.bean.RestfulRecord;
+import cn.com.zfyc.bean.ShopEntity;
 import cn.com.zfyc.bean.User;
 import cn.com.zfyc.service.UserService;
+import cn.com.zfyc.service.ShopService;
 import cn.hutool.core.collection.CollectionUtil;
+import org.apache.tomcat.util.security.MD5Encoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -16,28 +19,32 @@ import java.util.UUID;
  * 统一认证登录接口
  */
 @RestController
-@RequestMapping("/register")
+@RequestMapping("/auth")
 public class AuthenticationController {
 
 
     @Autowired
     private UserService userService;
 
-    @PostMapping("/register")
+    @Autowired
+    private ShopService shopService;
+
+    /**
+     * @desc 商户注册接口（先注册商户号才能申请开店)
+     * @param param
+     * @return
+     */
+    @PostMapping("/shopRegister")
     @ResponseBody
     public RestfulRecord register(@RequestBody Map<String,Object> param){
         User user = new User();
         String userId = UUID.randomUUID().toString().replaceAll("-","");
         user.setUser_id(userId);
+        user.setUser_type(1); // 0 管理员 1 商家  2 普通用户
         if (CollectionUtil.isNotEmpty(param)){
-           if (!StringUtils.isEmpty(param.get("userName"))){
-               user.setUser_name(param.get("userName").toString());
-           }
             if (!StringUtils.isEmpty(param.get("password"))){
-                user.setPassword(param.get("password").toString());
-            }
-            if (!StringUtils.isEmpty(param.get("userType"))){
-                user.setUser_type(Integer.parseInt(param.get("userType")+""));
+                String password = MD5Encoder.encode(param.get("password").toString().getBytes());
+                user.setPassword(password);
             }
             if (!StringUtils.isEmpty(param.get("gender"))){
                 user.setGender(Integer.parseInt(param.get("gender")+""));
@@ -48,7 +55,7 @@ public class AuthenticationController {
             user.setCreate_time(System.currentTimeMillis());
         }
          userService.insertUser(user);
-         return new RestfulRecord(200,"注册成功");
+         return new RestfulRecord(200,"商户号注册成功");
     }
 
     /**
@@ -92,7 +99,7 @@ public class AuthenticationController {
      * @param password 密码
      * @return
      */
-   @RequestMapping("/login")
+   @RequestMapping("/shopLoginByPassword")
    @ResponseBody
     public RestfulRecord login(@RequestParam String param,@RequestParam String password){
         RestfulRecord record = new RestfulRecord(200);
@@ -101,14 +108,27 @@ public class AuthenticationController {
            record.setMsg("登录失败");
        }else {
            record.setMsg("登录成功");
+           // 登录成功之后更新用户的Token并返回用户信息
            String token = UUID.randomUUID().toString().replaceAll("-","")+System.currentTimeMillis();
            userService.updateUserToken(token,param);
            User user = userService.findUserByPhoneNum(param);
+           ShopEntity shopEntity = shopService.findShopByUserId(user.getUser_id());
            Map<String,Object> map = new HashMap<>();
+           // 如果已经注册店铺就返回店铺信息
+           if (shopEntity != null && !StringUtils.isEmpty(shopEntity.getShopId())){
+               map.put("shop_id",shopEntity.getShopId());
+           }
            map.put("user_id",user.getUser_id());
            map.put("token",token);
            record.setData(map);
        }
        return record;
+    }
+
+    @RequestMapping("/getVerifyCode")
+    @ResponseBody
+    public RestfulRecord getVerifyCode(@RequestParam String phoneNum){
+
+       return new RestfulRecord(200);
     }
 }

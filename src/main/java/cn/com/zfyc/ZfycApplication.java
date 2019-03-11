@@ -13,7 +13,6 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
-@MapperScan("cn.com.zfyc.date.mapper")
 public class ZfycApplication {
 
     private final static Log log = LogFactory.get();

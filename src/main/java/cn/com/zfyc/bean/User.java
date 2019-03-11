@@ -10,7 +10,6 @@ public class User {
     private int gender;
     private String phoneNum;
     private Long create_time;
-    private String account;
     private int Integral;
 
     public String getToken() {
@@ -78,15 +77,7 @@ public class User {
     public void setCreate_time(Long create_time) {
         this.create_time = create_time;
     }
-
-    public String getAccount() {
-        return account;
-    }
-
-    public void setAccount(String account) {
-        this.account = account;
-    }
-
+    
     public int getIntegral() {
         return Integral;
     }
