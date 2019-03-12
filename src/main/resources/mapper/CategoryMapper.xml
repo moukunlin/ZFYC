@@ -4,7 +4,7 @@
 
     <insert id="save" >
         INSERT INTO
-          categorylistAllCategory
+          category
           (id,parent_id,category_name)
           VALUES
           (
