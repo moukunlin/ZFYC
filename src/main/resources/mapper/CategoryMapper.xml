@@ -4,7 +4,7 @@
 
     <insert id="save" >
         INSERT INTO
-          category
+          categorylistAllCategory
           (id,parent_id,category_name)
           VALUES
           (
@@ -13,5 +13,10 @@
             #{category.categoryName}
           )
     </insert>
-
+    <select id ="listAllCategory" resultType="cn.com.zfyc.bean.CategoryEntity">
+        select
+          id,parent_id parentId,category_name categoryName
+        from
+         category
+    </select>
 </mapper>
