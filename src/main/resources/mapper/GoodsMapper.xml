@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.zfyc.dao.GoodsDao">
+
+    <insert id="save" >
+        INSERT INTO
+            goods ( shop_id, goods_name, category_id, sale_price, preferential_price, status, img_url )
+         VALUES
+        (
+            #{goods.shopId},
+            #{goods.goodsName},
+            #{goods.categoryId},
+            #{goods.salePrice},
+            #{goods.preferentialPrice},
+            #{goods.status},
+            #{goods.imgUrl}
+        )
+    </insert>
+
+    <update id = "updateInvalid">
+        UPDATE goods
+        SET STATUS = 0
+        WHERE
+            goods_id = #{goodsId}
+    </update>
+    <select id ="listAllGoods" resultType="cn.com.zfyc.bean.GoodsEntity">
+        SELECT
+             goods_id goodsId, shop_id shopId, goods_name goodsName, category_id categoryId,
+             sale_price salePrice, preferential_price preferentialPrice, status, img_url imgUrl
+        FROM
+            goods
+        WHERE
+            STATUS = 1
+            AND shop_id = #{shopId}
+    </select>
+</mapper>
