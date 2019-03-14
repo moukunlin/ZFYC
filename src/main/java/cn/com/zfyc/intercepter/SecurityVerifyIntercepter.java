@@ -1,5 +1,6 @@
 package cn.com.zfyc.intercepter;
 
+import cn.com.zfyc.bean.User;
 import cn.com.zfyc.service.UserService;
 import cn.hutool.log.Log;
 import cn.hutool.log.LogFactory;
@@ -39,6 +40,7 @@ public class SecurityVerifyIntercepter implements HandlerInterceptor {
                 throw new Exception("this token is not allowed null or empty");
             }
              if (userService.checkUserToken(token, userId)){
+                 getCurrentUser(request);
                  return true;
              }
               throw new Exception("no access to this request url");
@@ -53,5 +55,12 @@ public class SecurityVerifyIntercepter implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
 
+    }
+
+    private User getCurrentUser(HttpServletRequest request){
+        String userId = request.getHeader("userId");
+        User user = userService.findUserByUserId(userId);
+        request.setAttribute("currentUser",user);
+        return user;
     }
 }
