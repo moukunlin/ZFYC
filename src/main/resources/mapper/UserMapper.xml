@@ -1,70 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.com.zfyc.dao.UserDao">
-    <resultMap id="BaseResultMap" type="cn.com.zfyc.bean.User">
-        <result column="user_id" jdbcType="VARCHAR" property="user_id" />
-        <result column="user_name" jdbcType="VARCHAR" property="user_name" />
-        <result column="password" jdbcType="VARCHAR" property="password" />
-        <result column="user_type" jdbcType="INTEGER" property="user_type" />
-        <result column="gender" jdbcType="INTEGER" property="gender" />
-        <result column="phone_num" jdbcType="VARCHAR" property="phone_num" />
-        <result column="create_date" jdbcType="TIMESTAMP" property="create_date" />
-        <result column="address" jdbcType="VARCHAR" property="address" />
-        <result column="Integral" jdbcType="INTEGER" property="Integral" />
-        <result column="ext1" jdbcType="VARCHAR" property="ext1" />
-        <result column="ext2" jdbcType="VARCHAR" property="ext2" />
-        <result column="ext3" jdbcType="VARCHAR" property="ext3" />
-        <result column="ext4" jdbcType="VARCHAR" property="ext4" />
-        <result column="ext5" jdbcType="VARCHAR" property="ext5"/>
-    </resultMap>
+
    <insert id="insertUser" parameterType="cn.com.zfyc.bean.User">
-       INSERT INTO user
-       <trim prefix="(" suffix=")" suffixOverrides=",">
-           <if test="user_name != null">
-               user_name,
-           </if>
-           <if test="password != null">
-               password,
-           </if>
-           <if test="user_type != null">
-               user_type,
-           </if>
-           <if test="gender != null">
-               gender,
-           </if>
-           <if test="phone_num != null">
-               phone_num,
-           </if>
-           <if test="create_date != null">
-               create_date,
-           </if>
-           <if test="Integral != null">
-               Integral,
-           </if>
-       </trim>
-       <trim prefix="values (" suffix=")" suffixOverrides=",">
-           <if test="user_name != null">
-              #{user_name},
-           </if>
-           <if test="password != null">
-               #{password},
-           </if>
-           <if test="user_type != null">
-               #{user_type},
-           </if>
-           <if test="gender != null">
-               gender,
-           </if>
-           <if test="phone_num != null">
-               #{phone_num},
-           </if>
-           <if test="create_date != null">
-               #{create_date},
-           </if>
-           <if test="Integral != null">
-               #{Integral}
-           </if>
-       </trim>>
+       INSERT INTO user(user_id,phone_num,password,user_type,create_date,token,Integral)
+       VALUES (#{user_id},#{phoneNum},#{password},#{user_type},NOW(),#{token},0)
    </insert>
 
     <select id="checkPhoneNum" parameterType="String" resultType="java.lang.Integer">

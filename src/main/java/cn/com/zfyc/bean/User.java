@@ -1,6 +1,8 @@
 package cn.com.zfyc.bean;
 
 
+import java.sql.Timestamp;
+
 public class User {
 
     private String user_id;
@@ -9,8 +11,9 @@ public class User {
     private int user_type;
     private int gender;
     private String phoneNum;
-    private Long create_time;
+    private Timestamp create_date;
     private int Integral;
+    private String token;
 
     public String getToken() {
         return token;
@@ -20,7 +23,6 @@ public class User {
         this.token = token;
     }
 
-    private String token;
 
     public String getUser_id() {
         return user_id;
@@ -70,12 +72,12 @@ public class User {
         this.phoneNum = phoneNum;
     }
 
-    public Long getCreate_time() {
-        return create_time;
+    public Timestamp getCreate_time() {
+        return create_date;
     }
 
-    public void setCreate_time(Long create_time) {
-        this.create_time = create_time;
+    public void setCreate_time(Timestamp create_time) {
+        this.create_date = create_time;
     }
 
     public int getIntegral() {

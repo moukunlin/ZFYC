@@ -8,6 +8,7 @@ import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.lang.UUID;
 import cn.hutool.log.Log;
 import cn.hutool.log.LogFactory;
+import org.apache.tomcat.util.security.MD5Encoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -111,9 +112,6 @@ public class FileUploadService {
             return new RestfulRecord(200,WebMessageConstants.SCE_PORTAL_MSG_420);
         }
     }
-
-
-
 
 }
 

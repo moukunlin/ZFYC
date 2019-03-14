@@ -5,6 +5,8 @@ import cn.com.zfyc.dao.ShopDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author created by putc on 2019/3/8
  */
@@ -20,5 +22,13 @@ public class ShopService  {
 
     public ShopEntity findShopByUserId(String user_id) {
         return shopDAO.findShopByUserId(user_id);
+    }
+
+    public ShopEntity findShopByShopId(int shopId){
+        return shopDAO.findShopByShopId(shopId);
+    }
+
+    public List<ShopEntity> findShopsByCondition(String shopName, int status) {
+        return shopDAO.findShopsByCondition(shopName,status);
     }
 }

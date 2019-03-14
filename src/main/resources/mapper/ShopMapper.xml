@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.com.zfyc.dao.ShopDao">
+    <resultMap id="BaseResultMap" type="cn.com.zfyc.bean.ShopEntity">
+        <result column="shop_id" property="shopId" jdbcType="INTEGER" />
+        <result column="shop_name" property="shopName" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="user_id" property="userId" jdbcType="VARCHAR"/>
+        <result column="type_id" property="typeId" jdbcType="INTEGER"/>
+        <result column="area" property="area" jdbcType="VARCHAR"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="lng" property="lng" jdbcType="VARCHAR"/>
+        <result column="lat" property="lat" jdbcType="VARCHAR"/>
+        <result column="shop_photo" property="shopPhoto" jdbcType="VARCHAR"/>
+        <result column="in_store" property="inStore" jdbcType="VARCHAR"/>
+        <result column="license_photo" property="licensePhoto" jdbcType="INTEGER"/>
+        <result column="permit_photo" property="permitPhoto" jdbcType="INTEGER"/>
+        <result column="id_num" property="idNum" jdbcType="VARCHAR"/>
+        <result column="id_photo" property="IdPhoto" jdbcType="INTEGER"/>
+        <result column="bank_address" property="bankAddress" jdbcType="VARCHAR"/>
+        <result column="bank_name" property="bankName" jdbcType="VARCHAR"/>
+        <result column="bank_user_name" property="bankUserName" jdbcType="VARCHAR"/>
+        <result column="bank_id" property="bankId" jdbcType="VARCHAR"/>
+        <result column="bank_phone" property="bankPhone" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="create_date" property="createDate" jdbcType="TIMESTAMP"/>
+    </resultMap>
 
     <insert id="save" >
         INSERT INTO
@@ -10,10 +34,10 @@
             type_id,
             name,
             user_id,
+            area,
             address,
             lng,
             lat,
-            area,
             shop_photo,
             in_store,
             license_photo,
@@ -21,24 +45,23 @@
             id_num,
             id_photo,
             bank_address,
-            bank_nane,
             bank_name,
+            bank_user_name,
             bank_id,
             bank_phone,
             status,
             create_date
-
           )
           VALUES
 	      (
             #{shop.shopName},
             #{shop.typeId},
             #{shop.name},
-            #{shop.userId}
+            #{shop.userId},
             #{shop.area},
             #{shop.address},
             #{shop.lng},
-            #{shop.lat}
+            #{shop.lat},
             #{shop.shopPhoto},
             #{shop.inStore},
             #{shop.licensePhoto},
@@ -46,26 +69,26 @@
             #{shop.idNum},
             #{shop.IdPhoto},
             #{shop.bankAddress},
-            #{shop.bankNnme},
             #{shop.bankName},
+            #{shop.bankUserName},
             #{shop.bankId},
             #{shop.bankPhone},
             0,
-            now()
+            NOW()
             )
-
     </insert>
 
-    <select id="checkPhoneNum" parameterType="String" resultType="cn.com.zfyc.bean.ShopEntity">
-        SELECT * FROM  shop WHERE
-        <if test="shopId != null">
-            shop_id = #{shopId}
-        </if>
-    </select>
 
-   <select id="findShopByUserId" parameterType="String" resultType="cn.com.zfyc.bean.ShopEntity">
+   <select id="findShopByUserId" parameterType="String" resultMap="BaseResultMap">
       SELECT * FROM  shop where user_id = #{userId};
    </select>
 
+    <select id="findShopByShopId" parameterType="Integer" resultMap="BaseResultMap">
+      SELECT * FROM  shop where shop_id = #{shopId};
+    </select>
+
+    <select id="findShopsByCondition" resultMap="BaseResultMap">
+        SELECT * FROM shop WHERE shop_name LIKE CONCAT('%',#{shopName},'%') AND status = #{status}
+    </select>
 
 </mapper>

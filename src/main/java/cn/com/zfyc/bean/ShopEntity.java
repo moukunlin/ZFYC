@@ -2,6 +2,7 @@ package cn.com.zfyc.bean;
 
 import lombok.Data;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -9,11 +10,11 @@ import java.util.Date;
  */
 @Data
 public class ShopEntity {
-    private Integer shopId;
+    private int shopId;
     private String shopName;
-    private String userId;
-    private String typeId;
     private String name;
+    private String userId;
+    private int typeId;
     private String area;
     private String address;
     private String lng;
@@ -29,6 +30,6 @@ public class ShopEntity {
     private String bankUserName;
     private String bankId;
     private String bankPhone;
-    private Integer status;
-    private Date createDate;
+    private int status;
+    private Timestamp createDate;
 }
