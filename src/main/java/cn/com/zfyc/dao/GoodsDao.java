@@ -14,5 +14,5 @@ import java.util.List;
 public interface GoodsDao {
     Integer save(@Param("goods") GoodsEntity goods);
     List<GoodsEntity> listAllGoods(@Param("shopId") Integer shopId);
-    Integer updateInvalid(@Param("goodsId") Integer goodsId);
+    Integer update(@Param("goods") GoodsEntity goods);
 }

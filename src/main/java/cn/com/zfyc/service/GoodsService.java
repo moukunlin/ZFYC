@@ -26,7 +26,14 @@ public class GoodsService {
     }
 
     public Integer updateInvalid(Integer goodsId) {
-        return goodsDao.updateInvalid(goodsId);
+        GoodsEntity goods = new GoodsEntity();
+        goods.setStatus(0);
+        goods.setGoodsId(goodsId);
+        return goodsDao.update(goods);
+    }
+
+    public Integer updateInfo(GoodsEntity goods) {
+        return goodsDao.update(goods);
     }
 
 }

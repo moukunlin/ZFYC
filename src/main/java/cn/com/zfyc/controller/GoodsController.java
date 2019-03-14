@@ -31,13 +31,22 @@ public class GoodsController {
         return new RestfulRecord(goodsService.listAllGoodsByShopId(shopId));
     }
 
-    @GetMapping("/goods/update/{goodsId}")
+    @GetMapping("/goods/update/invalid/{goodsId}")
     public RestfulRecord updateInvalid(@PathVariable Integer goodsId) {
         Integer result = goodsService.updateInvalid(goodsId);
         if(null == result || result <= 0){
             return new RestfulRecord(500,"抱歉，商品下架失败", WebMessageConstants.FAIL);
         }
         return new RestfulRecord(200,"商品下架成功", WebMessageConstants.SUCCESS);
+    }
+
+    @PostMapping("/goods/update/info")
+    public RestfulRecord updateGoods(@RequestBody GoodsEntity goods) {
+        Integer result = goodsService.updateInfo(goods);
+        if(null == result || result <= 0){
+            return new RestfulRecord(500,"抱歉，商品修改信息失败", WebMessageConstants.FAIL);
+        }
+        return new RestfulRecord(200,"商品修改信息成功", WebMessageConstants.SUCCESS);
     }
 }
 

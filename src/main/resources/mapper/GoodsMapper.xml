@@ -16,12 +16,30 @@
             #{goods.imgUrl}
         )
     </insert>
-
-    <update id = "updateInvalid">
+    <update id ="update">
         UPDATE goods
-        SET STATUS = 0
+        <set>
+            <if test="goods.goodsName != null">
+                goods_name = #{goods.goodsName},
+            </if>
+            <if test="goods.categoryId != null">
+                category_id = #{goods.categoryId},
+            </if>
+            <if test="goods.salePrice != null">
+              sale_price = #{goods.salePrice},
+            </if>
+            <if test="goods.preferentialPrice != null">
+              preferential_price = #{goods.preferentialPrice},
+            </if>
+            <if test="goods.imgUrl != null">
+              img_url =  #{goods.imgUrl},
+            </if>
+            <if test="goods.status != null">
+                status =  #{goods.status}
+            </if>
+        </set>
         WHERE
-            goods_id = #{goodsId}
+            goods_id =  #{goods.goodsId}
     </update>
     <select id ="listAllGoods" resultType="cn.com.zfyc.bean.GoodsEntity">
         SELECT
