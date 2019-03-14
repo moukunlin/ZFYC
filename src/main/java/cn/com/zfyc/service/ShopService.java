@@ -31,4 +31,8 @@ public class ShopService  {
     public List<ShopEntity> findShopsByCondition(String shopName, int status) {
         return shopDAO.findShopsByCondition(shopName,status);
     }
+
+    public List<ShopEntity> findAllShop(int start, int end) {
+        return shopDAO.findAllShop(start,end);
+    }
 }

@@ -47,7 +47,7 @@ public class UserService {
             return false;
         }
         User user = findUserByUserId(user_id);
-        if (token.equals(user.getToken())){
+        if (null != user && token.equals(user.getToken())){
             return true;
         }
            return false;

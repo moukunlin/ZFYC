@@ -73,5 +73,17 @@ public class AdminController {
         return new RestfulRecord(200,shopEntities);
     }
 
+    @RequestMapping("/findAllShop")
+    @ResponseBody
+    public RestfulRecord findAllShop(@RequestParam int pageNum, @RequestParam int pageSize){
+        int start = (pageNum-1) * pageSize;
+        int end = pageNum * pageSize;
+        List<ShopEntity> shopEntityList = shopService.findAllShop(start,end);
+        log.info("本次查询共查询到{}条数据",shopEntityList.size());
+        return new RestfulRecord(200,shopEntityList);
+    }
+
+
+
 
 }

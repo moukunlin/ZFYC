@@ -10,7 +10,11 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * controller 返回值为 json 类型的依然会经过组装。
@@ -50,5 +54,11 @@ public class ResponseHandler implements ResponseBodyAdvice {
             return restfulRecord;
         }
         return null;
+    }
+
+    @ExceptionHandler
+    @ResponseBody
+    public RestfulRecord dealException(HttpServletRequest request, @NonNull Exception e){
+        return new RestfulRecord(500,e.getMessage(),e.getCause());
     }
 }

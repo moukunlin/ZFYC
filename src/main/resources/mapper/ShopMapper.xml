@@ -91,4 +91,8 @@
         SELECT * FROM shop WHERE shop_name LIKE CONCAT('%',#{shopName},'%') AND status = #{status}
     </select>
 
+    <select id="findAllShop" resultMap="BaseResultMap">
+        SELECT * FROM shop ORDER BY create_date DESC LIMIT #{start},#{end}
+    </select>
+
 </mapper>

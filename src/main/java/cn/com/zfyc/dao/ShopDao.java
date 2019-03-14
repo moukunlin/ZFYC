@@ -20,4 +20,6 @@ public interface ShopDao {
     ShopEntity findShopByShopId(@Param("shopId") int shopId);
     
     List<ShopEntity> findShopsByCondition(@Param("shopName") String shopName, @Param("status") int status);
+
+    List<ShopEntity> findAllShop(@Param("start") int start, @Param("end") int end);
 }
