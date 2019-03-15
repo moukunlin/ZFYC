@@ -9,7 +9,7 @@ import lombok.Data;
 public class CategoryEntity {
 
     private Integer id;
-    private Integer parentId;
+    private Integer typeId;
     private String categoryName;
 
 }
