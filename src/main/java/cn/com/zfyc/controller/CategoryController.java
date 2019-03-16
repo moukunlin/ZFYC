@@ -39,7 +39,7 @@ public class CategoryController {
     }
 
     @PostMapping("/category/delete")
-    public RestfulRecord save(@RequestParam String ids){
+    public RestfulRecord delete(@RequestParam String ids){
         if(StringUtils.isEmpty(ids)){
             return new RestfulRecord(500,"未选中分类不能删除", WebMessageConstants.FAIL);
         }

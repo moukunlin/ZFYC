@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.zfyc.dao.NoticeDao">
+
+    <insert id="save" >
+        INSERT INTO
+            notice (content, create_user_id, create_date)
+         VALUES
+        (
+            #{notice.content},
+            #{notice.createUserId},
+            now()
+        )
+    </insert>
+    <select id ="getNewNotice" resultType="cn.com.zfyc.bean.NoticeEntity">
+        SELECT
+            MAX( id ) id,
+            content,
+            create_user_id createUserId,
+            create_date createDate
+        FROM
+            notice
+    </select>
+</mapper>
