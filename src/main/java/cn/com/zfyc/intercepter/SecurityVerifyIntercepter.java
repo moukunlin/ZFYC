@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Enumeration;
 
 @Component
 public class SecurityVerifyIntercepter implements HandlerInterceptor {
@@ -26,9 +27,17 @@ public class SecurityVerifyIntercepter implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         log.info("starting security verify of user's token,request url:{}",request.getRequestURL());
         String url = request.getRequestURL().toString();
-        if (url.contains("/auth") ){
+        String method = request.getMethod();
+        log.info("请求方式:{}",method);
+        if (method.equals("OPTIONS")|| url.contains("/auth") || url.contains("/admin/login") ){
             return true;
         }else {
+            Enumeration<String> headerNames = request.getHeaderNames();
+            while (headerNames.hasMoreElements()){
+                String key = headerNames.nextElement();
+                String value = request.getHeader(key);
+                log.info("获取到header信息 ->>> key:{}, value:{}",key,value);
+            }
             String userId = request.getHeader("userId");
             if (StringUtils.isEmpty(userId)){
                 log.error("userId is not allowed null or empty");

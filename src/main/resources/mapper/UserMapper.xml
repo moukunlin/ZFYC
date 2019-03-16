@@ -45,4 +45,8 @@
         SELECT * FROM user where user_id = #{userId}
     </select>
 
+    <select id="findUserByUserNameAndPassWord" resultMap="UserResultMap">
+        SELECT * FROM user WHERE user_name = #{userName} AND password = #{passWord}
+    </select>
+
 </mapper>

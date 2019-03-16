@@ -4,10 +4,13 @@ import cn.com.zfyc.bean.RestfulRecord;
 import cn.com.zfyc.bean.ShopEntity;
 import cn.com.zfyc.constants.WebMessageConstants;
 import cn.com.zfyc.service.ShopService;
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.log.Log;
 import cn.hutool.log.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 
 /**
@@ -39,5 +42,20 @@ public class ShopController {
         }
 
     }
+
+    @RequestMapping("/getShopType")
+    public RestfulRecord getShopType(@RequestParam int shopId){
+        Map<String, Object> shopType = shopService.getShopType(shopId);
+        if (CollectionUtil.isEmpty(shopType)){
+            return new RestfulRecord(500,"抱歉,没有查询到该商铺的信息");
+        }
+        return new RestfulRecord(200,shopType);
+    }
+
+
+    /**
+     * @desc 查看订单
+     *
+     */
 }
 

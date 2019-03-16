@@ -91,8 +91,23 @@
         SELECT * FROM shop WHERE shop_name LIKE CONCAT('%',#{shopName},'%') AND status = #{status}
     </select>
 
-    <select id="findAllShop" resultMap="BaseResultMap">
-        SELECT * FROM shop ORDER BY create_date DESC LIMIT #{start},#{end}
+    <select id="findAllShop" resultType="java.util.HashMap">
+        SELECT MAIN.*,U.phone_num FROM shop MAIN
+        left JOIN user U
+        ON MAIN.user_id = U.user_id
+        ORDER BY MAIN.create_date DESC LIMIT #{start},#{end}
     </select>
 
+    <select id="getShopType" resultType="java.util.HashMap">
+       SELECT MAIN.shop_name shopName,C.category_name categoryName,
+                case C.type_id
+                WHEN 1 THEN '商品'
+                WHEN 2 THEN '餐饮'
+                ELSE '其他'
+                end
+                AS type
+        FROM (SELECT * FROM shop WHERE shop_id = #{shopId}) MAIN
+        LEFT JOIN category C
+        ON C.ID = MAIN.type_id
+    </select>
 </mapper>

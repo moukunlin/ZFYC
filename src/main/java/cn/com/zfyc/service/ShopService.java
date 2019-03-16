@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author created by putc on 2019/3/8
@@ -32,7 +33,11 @@ public class ShopService  {
         return shopDAO.findShopsByCondition(shopName,status);
     }
 
-    public List<ShopEntity> findAllShop(int start, int end) {
+    public List<Map<String,Object>> findAllShop(int start, int end) {
         return shopDAO.findAllShop(start,end);
+    }
+
+    public Map<String,Object> getShopType(int shopId) {
+        return shopDAO.getShopType(shopId);
     }
 }

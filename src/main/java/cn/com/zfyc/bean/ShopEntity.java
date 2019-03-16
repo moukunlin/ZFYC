@@ -19,8 +19,8 @@ public class ShopEntity {
     private String address;
     private String lng;
     private String lat;
-    private String shopPhoto;
-    private String inStore;
+    private String shopPhoto; // 门店图片
+    private String inStore;  // 店内环境
     private int licensePhoto;
     private int permitPhoto;
     private String idNum;
