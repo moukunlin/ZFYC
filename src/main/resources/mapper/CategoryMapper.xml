@@ -5,17 +5,22 @@
     <insert id="save" >
         INSERT INTO
           category
-          (id,parent_id,category_name)
+          (type_id,category_name)
           VALUES
           (
-            #{category.id},
-            #{category.parentId},
+            #{category.typeId},
             #{category.categoryName}
           )
     </insert>
+    <delete id="delete">
+        delete  from  category where  id in
+        <foreach collection="idList" item="id" open="(" close=")" separator=",">
+          #{id}
+        </foreach>
+    </delete>
     <select id ="listAllCategory" resultType="cn.com.zfyc.bean.CategoryEntity">
         select
-          id,parent_id parentId,category_name categoryName
+          id,type_id typeId,category_name categoryName
         from
          category
     </select>

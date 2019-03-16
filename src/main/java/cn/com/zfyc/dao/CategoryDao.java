@@ -13,6 +13,9 @@ import java.util.List;
 @Mapper
 public interface CategoryDao {
     Integer save(@Param("category") CategoryEntity categoryEntity);
+
     List<CategoryEntity> listAllCategory();
+
+    Integer delete(@Param("idList") List<Integer> idList);
 
 }
