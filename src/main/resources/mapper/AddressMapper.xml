@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.zfyc.dao.AddressDao">
+
+    <insert id="save" >
+        INSERT INTO
+          address
+          (create_user, consignee, gender, address, area, city, province, phone_num, checked, create_time)
+        VALUES
+        (
+            #{address.createUser},
+            #{address.consignee},
+            #{address.gender},
+            #{address.address},
+            #{address.area},
+            #{address.city},
+            #{address.province},
+            #{address.phoneNum},
+            #{address.checked},
+            now()
+        )
+    </insert>
+    <update id ="update">
+        UPDATE address
+        <set>
+            <if test="address.consignee != null">
+                consignee = #{address.consignee},
+            </if>
+            <if test="address.gender != null">
+                gender = #{address.gender},
+            </if>
+            <if test="address.address != null">
+                address = #{address.address},
+            </if>
+            <if test="address.area != null">
+                area = #{address.area},
+            </if>
+            <if test="address.city != null">
+                city = #{address.city},
+            </if>
+            <if test="address.province != null">
+                province = #{address.province},
+            </if>
+            <if test="address.phoneNum != null">
+                phone_num = #{address.phoneNum},
+            </if>
+            <if test="address.checked != null">
+                checked = #{address.checked},
+            </if>
+            modify_time = now(),
+        </set>
+        WHERE
+            id =  #{address.id}
+    </update>
+    <select id ="listAllAddress" resultType="cn.com.zfyc.bean.AddressEntity">
+        SELECT
+             id, create_user createUser, consignee, gender, address, area, city, province,
+             phone_num phoneNum, checked, create_time createTime, modify_time modifyTime
+        FROM
+            address
+        WHERE
+            create_user = #{createUser}
+    </select>
+
+    <delete id="delete">
+        delete  from  address where  id = #{addressId}
+    </delete>
+</mapper>
