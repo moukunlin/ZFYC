@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.zfyc.dao.AdvertisDao">
+
+    <insert id="save" >
+        INSERT INTO
+            advertising
+          ( adname, adType, shopId, shopName, cover, display )
+         VALUES
+        (
+            #{advertis.adname},
+            #{advertis.adType},
+            #{advertis.shopId},
+            #{advertis.shopName},
+            #{advertis.cover},
+            #{advertis.display}
+        )
+    </insert>
+    <select id ="getDisplay" resultType="cn.com.zfyc.bean.AdvertisEntity">
+        SELECT
+            adname
+            adType
+            shopId
+            shopName
+            cover
+            display
+        FROM
+            advertising
+         where display = true
+    </select>
+    <update id ="update">
+        update advertising
+        set  display = false
+        where
+        id = #{id}
+    </update>
+    <delete id="delete">
+        delete advertising
+        where
+        id = #{id}
+    </delete>
+</mapper>
