@@ -9,7 +9,6 @@ import cn.com.zfyc.utils.SendSmsUtil;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.log.Log;
 import cn.hutool.log.LogFactory;
-import org.apache.tomcat.util.security.MD5Encoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;
@@ -161,6 +160,19 @@ public class AuthenticationController {
            return new RestfulRecord(500,"登录失败,请重试");
        }
        log.info("用户{}登录成功,登录时间{}",phoneNum,new Date());
+       if (userService.findUserByPhoneNum(phoneNum) == null){
+           // 如果用户还未注册,就注册一个账号
+           log.info("当前用户为注册,将自动注册一个账号");
+           User user = new User();
+           String userId = UUID.randomUUID().toString().replaceAll("-","");
+           String token = UUID.randomUUID().toString().replaceAll("-","")+System.currentTimeMillis();
+           user.setUser_id(userId);
+           user.setUser_type(1);
+           user.setPassword("");
+           user.setToken(token);
+           user.setPhoneNum(phoneNum);
+           userService.insertUser(user);
+       }
         String token = UUID.randomUUID().toString().replaceAll("-","")+System.currentTimeMillis();
         userService.updateUserToken(token,phoneNum);
         User user = userService.findUserByPhoneNum(phoneNum);
@@ -218,7 +230,7 @@ public class AuthenticationController {
             else if (CollectionUtil.isEmpty(currentUserVerifyInfo)){
                 return new RestfulRecord(500,"请先获取验证码");
             }
-            /*else if ((System.currentTimeMillis()-(long) currentUserVerifyInfo.get("date"))/1000/60 > 3){
+          /*  else if ((System.currentTimeMillis()-(long) currentUserVerifyInfo.get("date"))/1000/60 > 3){
                 return new RestfulRecord(500,"验证码已失效,请重新获取");
             }*/
             else if (code == (int)currentUserVerifyInfo.get("verifyCode")){
@@ -227,7 +239,5 @@ public class AuthenticationController {
            else {
                 return new RestfulRecord(500,"验证失败");
             }
-
     }
-
 }

@@ -109,7 +109,7 @@ public class FileUploadService {
             file.put("url",fileMappingPath + File.separator + file.get("file_name").toString());
             return new RestfulRecord(200,WebMessageConstants.SCE_PORTAL_MSG_200,file);
         }else {
-            return new RestfulRecord(200,WebMessageConstants.SCE_PORTAL_MSG_420);
+            return new RestfulRecord(500,WebMessageConstants.SCE_PORTAL_MSG_420);
         }
     }
 

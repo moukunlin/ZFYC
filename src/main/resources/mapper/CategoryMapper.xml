@@ -13,7 +13,7 @@
           )
     </insert>
     <delete id="delete">
-        delete  from  category where  id in
+        delete  from  category  where  id in
         <foreach collection="idList" item="id" open="(" close=")" separator=",">
           #{id}
         </foreach>

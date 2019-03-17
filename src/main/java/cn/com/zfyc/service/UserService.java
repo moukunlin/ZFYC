@@ -56,4 +56,8 @@ public class UserService {
     public User findUserByUserId(String user_id){
         return userDao.findUserByUserId(user_id);
     }
+
+    public User findUserByUserNameAndPassWord(String userName, String passWord) {
+        return userDao.findUserByUserNameAndPassWord(userName,passWord);
+    }
 }

@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.com.zfyc.dao.UserDao">
+    <resultMap id="UserResultMap" type="cn.com.zfyc.bean.User">
+        <result column="user_id" property="user_id" jdbcType="VARCHAR"/>
+        <result column="user_name" property="user_name" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="user_type" property="user_type" jdbcType="INTEGER"/>
+        <result column="gender" property="gender" jdbcType="INTEGER"/>
+        <result column="phone_num" property="phoneNum" jdbcType="VARCHAR"/>
+        <result column="create_date" property="create_date" jdbcType="TIMESTAMP"/>
+        <result column="Integral" property="Integral" jdbcType="INTEGER"/>
+        <result column="token" property="token" jdbcType="VARCHAR"/>
+    </resultMap>
+
 
    <insert id="insertUser" parameterType="cn.com.zfyc.bean.User">
        INSERT INTO user(user_id,phone_num,password,user_type,create_date,token,Integral)
@@ -25,12 +37,16 @@
         UPDATE user set token = #{token} where phone_num = #{phoneNum}
     </update>
 
-    <select id="findUserByPhoneNum" parameterType="String" resultType="cn.com.zfyc.bean.User">
+    <select id="findUserByPhoneNum" parameterType="String" resultMap="UserResultMap">
         SELECT * FROM user where phone_num = #{phoneNum}
     </select>
 
-    <select id="findUserByUserId" parameterType="String" resultType="cn.com.zfyc.bean.User">
+    <select id="findUserByUserId" parameterType="String" resultMap="UserResultMap">
         SELECT * FROM user where user_id = #{userId}
+    </select>
+
+    <select id="findUserByUserNameAndPassWord" resultMap="UserResultMap">
+        SELECT * FROM user WHERE user_name = #{userName} AND password = #{passWord}
     </select>
 
 </mapper>

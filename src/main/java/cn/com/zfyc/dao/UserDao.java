@@ -21,4 +21,6 @@ public interface UserDao {
     User findUserByPhoneNum(@Param("phoneNum")String phoneNum);
 
     User findUserByUserId(@Param("userId") String user_id);
+
+    User findUserByUserNameAndPassWord(@Param("userName") String userName, @Param("passWord") String passWord);
 }
