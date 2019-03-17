@@ -18,11 +18,12 @@
     </insert>
     <select id ="getDisplay" resultType="cn.com.zfyc.bean.AdvertisEntity">
         SELECT
-            adname
-            adType
-            shopId
-            shopName
-            cover
+            id,
+            adname,
+            adType,
+            shopId,
+            shopName,
+            cover,
             display
         FROM
             advertising
@@ -35,7 +36,7 @@
         id = #{id}
     </update>
     <delete id="delete">
-        delete advertising
+        delete from advertising
         where
         id = #{id}
     </delete>

@@ -6,6 +6,8 @@ import cn.com.zfyc.dao.AdvertisDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author created by putc on 2019/3/8
  */
@@ -27,7 +29,7 @@ public class AdvertisService {
         return advertisDao.delete(id);
     }
 
-    public AdvertisEntity getDisplay(){
+    public List<AdvertisEntity> getDisplay(){
         return advertisDao.getDisplay();
     }
 
