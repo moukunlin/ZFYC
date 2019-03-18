@@ -29,7 +29,7 @@ public class SecurityVerifyIntercepter implements HandlerInterceptor {
         String url = request.getRequestURL().toString();
         String method = request.getMethod();
         log.info("请求方式:{}",method);
-        if (method.equals("OPTIONS")|| url.contains("/auth") || url.contains("/admin/login") ){
+       /* if (method.equals("OPTIONS")|| url.contains("/auth") || url.contains("/admin/login") ){
             return true;
         }else {
             Enumeration<String> headerNames = request.getHeaderNames();
@@ -53,7 +53,8 @@ public class SecurityVerifyIntercepter implements HandlerInterceptor {
                  return true;
              }
               throw new Exception("no access to this request url");
-        }
+        }*/
+       return true;
     }
 
     @Override
