@@ -58,9 +58,10 @@ public class AdminController {
             else if (user.getUser_type() !=0 ){
                 return new RestfulRecord(500,"抱歉,你没有权限登录管理员平台");
             }else {
-                Map<String,String> map = new HashMap<>();
+                Map<String,Object> map = new HashMap<>();
                 map.put("userId",user.getUser_id());
                 map.put("token",user.getToken());
+                map.put("userType",0);
                 return new RestfulRecord(200,"登录成功",map);
             }
         } catch (UnsupportedEncodingException e) {
