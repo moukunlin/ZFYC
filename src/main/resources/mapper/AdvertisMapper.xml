@@ -17,8 +17,8 @@
         )
     </insert>
     <select id ="getDisplay" resultType="cn.com.zfyc.bean.AdvertisEntity">
-        SELECT
-            id,
+       SELECT
+             id,
             adname,
             adType,
             shopId,
@@ -28,6 +28,7 @@
         FROM
             advertising
          where display = true
+         limit 8
     </select>
     <update id ="update">
         update advertising
