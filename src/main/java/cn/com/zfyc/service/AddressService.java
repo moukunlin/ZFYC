@@ -17,6 +17,10 @@ public class AddressService {
     private AddressDao addressDao;
 
     public Integer save(AddressEntity addressEntity) {
+        AddressEntity address = new AddressEntity();
+        address.setCreateUser(addressEntity.getCreateUser());
+        address.setChecked(false);
+        addressDao.update(address);
         return addressDao.save(addressEntity);
     }
 

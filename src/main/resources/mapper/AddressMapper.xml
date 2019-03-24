@@ -51,6 +51,9 @@
         </set>
         WHERE
             id =  #{address.id}
+        <if test="address.createUser != null">
+            or create_user = #{address.createUser}
+        </if>
     </update>
     <select id ="listAllAddress" resultType="cn.com.zfyc.bean.AddressEntity">
         SELECT
