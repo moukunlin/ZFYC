@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.zfyc.dao.CouponsDao">
+
+    <insert id="save" >
+         INSERT INTO coupons (coupon_num, shop_id, effend, full, red, end_date, start_date )
+         VALUES
+        (
+            #{coupons.couponNum},
+            #{coupons.shopId},
+            #{coupons.effend},
+            #{coupons.full},
+            #{coupons.red},
+            #{coupons.endDate},
+            #{coupons.startDate}
+        )
+    </insert>
+    <select id ="select" resultType="cn.com.zfyc.bean.NoticeEntity">
+        SELECT
+            id,
+            coupon_num couponNum,
+            shop_id shopId,
+            effend,
+            full,
+            red,
+            end_Date endDate,
+            start_Date startDate
+        FROM
+            coupons
+        where
+            1 = 1
+        <if test="coupons.shopId != null">
+            and  shop_id = #{coupons.shopId}
+        </if>
+        <if test="coupons.id != null">
+            and  id = #{coupons.id}
+        </if>
+    </select>
+</mapper>
