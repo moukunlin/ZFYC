@@ -50,9 +50,12 @@
             modify_time = now(),
         </set>
         WHERE
-            id =  #{address.id}
+        1 = 1
+        <if test="address.id != null">
+            and  id =  #{address.id}
+        </if>
         <if test="address.createUser != null">
-            or create_user = #{address.createUser}
+            and create_user = #{address.createUser}
         </if>
     </update>
     <select id ="listAllAddress" resultType="cn.com.zfyc.bean.AddressEntity">
