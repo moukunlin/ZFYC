@@ -17,20 +17,21 @@ public class AddressService {
     private AddressDao addressDao;
 
     public Integer save(AddressEntity addressEntity) {
-        AddressEntity address = new AddressEntity();
-        address.setCreateUser(addressEntity.getCreateUser());
-        address.setChecked(false);
-        addressDao.update(address);
+        this.updateDefaultAddress(addressEntity);
         return addressDao.save(addressEntity);
     }
 
-    public Integer update(AddressEntity addressEntity) {
-        if(addressEntity.getChecked()){
+    private void updateDefaultAddress(AddressEntity addressEntity) {
+        if (addressEntity.getChecked()) {
             AddressEntity address = new AddressEntity();
             address.setCreateUser(addressEntity.getCreateUser());
             address.setChecked(false);
             addressDao.update(address);
         }
+    }
+
+    public Integer update(AddressEntity addressEntity) {
+        this.updateDefaultAddress(addressEntity);
         return addressDao.update(addressEntity);
     }
 
