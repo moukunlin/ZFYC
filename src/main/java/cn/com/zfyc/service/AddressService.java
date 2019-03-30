@@ -25,6 +25,12 @@ public class AddressService {
     }
 
     public Integer update(AddressEntity addressEntity) {
+        if(addressEntity.getChecked()){
+            AddressEntity address = new AddressEntity();
+            address.setCreateUser(addressEntity.getCreateUser());
+            address.setChecked(false);
+            addressDao.update(address);
+        }
         return addressDao.update(addressEntity);
     }
 
